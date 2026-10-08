@@ -10,8 +10,11 @@ canvas{display:block}
 #title{position:fixed;top:12px;width:100%;text-align:center;color:#fff;font:700 20px system-ui;letter-spacing:2px;pointer-events:none}
 #fps{position:fixed;bottom:8px;left:8px;color:#8f8;font:12px monospace}
 #err{position:fixed;top:50px;left:8px;right:8px;color:#fff;background:#c0392b;font:13px monospace;padding:8px;display:none;z-index:9}
-#anims{position:fixed;bottom:28px;width:100%;display:flex;justify-content:center;gap:6px}
+#anims{position:fixed;bottom:28px;width:100%;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
 #anims button{padding:10px 12px;border:0;border-radius:10px;background:#7c4dff;color:#fff;font:600 13px system-ui}
+#board{position:fixed;top:50px;right:8px;width:140px;background:rgba(20,10,50,.75);border-radius:12px;padding:8px;color:#fff;font:13px system-ui}
+.lb-title{font-weight:700;margin-bottom:6px;text-align:center}
+.lb-row{display:flex;justify-content:space-between;gap:6px;padding:3px 0}
 </style>
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}
@@ -20,6 +23,7 @@ canvas{display:block}
 <body>
 <div id="title">GIFT BATTLE ARENA</div>
 <div id="err"></div>
+<div id="board"></div>
 <div id="fps"></div>
 <div id="anims"></div>
 <script>
