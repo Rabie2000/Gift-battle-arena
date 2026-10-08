@@ -3,6 +3,8 @@ import { CONFIG } from './config.js';
 import { Arena } from './arena/Arena.js';
 import { Avatar } from './avatars/Avatar.js';
 import { ANIMATIONS } from './avatars/animations.js';
+import { ScoreSystem } from './systems/ScoreSystem.js';
+import { Leaderboard } from './ui/Leaderboard.js';
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x0b0620);
@@ -40,7 +42,13 @@ const avatars = CONFIG.players.map((p, i) => {
   return a;
 });
 
-// أزرار معاينة مؤقتة للـPhase 1
+// Phase 2: النقاط + الترتيب
+const scores = new ScoreSystem(CONFIG.players);
+const leaderboard = new Leaderboard(document.getElementById('board'));
+scores.onChange((ranking) => leaderboard.render(ranking));
+leaderboard.render(scores.ranking());
+
+// أزرار مؤقتة: animations + تجربة نقاط
 const bar = document.getElementById('anims');
 Object.keys(ANIMATIONS).forEach((name) => {
   const b = document.createElement('button');
@@ -48,6 +56,10 @@ Object.keys(ANIMATIONS).forEach((name) => {
   b.onclick = () => avatars.forEach((a) => a.play(name));
   bar.appendChild(b);
 });
+const testBtn = document.createElement('button');
+testBtn.textContent = '+500 random';
+testBtn.onclick = () => scores.add(Math.floor(Math.random() * CONFIG.players.length), CONFIG.scores.medium);
+bar.appendChild(testBtn);
 
 const fpsEl = document.getElementById('fps');
 let frames = 0, last = performance.now();
